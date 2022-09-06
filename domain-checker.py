@@ -28,20 +28,12 @@ def runAvailabilityCheck():
                 avail.append('True')
 
 def runOutputCSV():
-    with open('persons.csv', 'w') as f:
-        filewriter = csv.writer(f)
-        filewriter.writerow(['Domain Name', 'Availble'])
-        for dom in domains:
-            if dom is not None and dom != '':
-                for ava in avail:
-                    if ava is not None and dom != '':
-                        filewriter.writerow([dom, ava])
+    with open('persons.csv', 'w', newline='') as f:
+        filewriter = csv.writer(f, delimiter=',', quoting=csv.QUOTE_NONE, skipinitialspace=True)
+        filewriter.writerow(['Domain Name', 'Available'])
+        filewriter.writerows(zip(domains,avail))
 
 if __name__ == "__main__":
     getDomainList()
     runAvailabilityCheck()
     runOutputCSV()
-    
-    #print(dictdomains)
-    print(domains)
-    print(avail)
